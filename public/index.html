@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Scraping With Mongoose</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--font awesome-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <style>
+      #jumbo{
+        background-image: url("img/data-scraping.png");
+        background-size:100% auto;
+        height: 565px;
+        text-align: center;
+      }
+    </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper blue-grey darken-4">
+      <a href="#" class="brand-logo">CNET Scraper</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Save Articles <i class="fas fa-archive"></i></a></li>
+        <li><a href="#" id="scrapeArticles">Scrape new articles <i class="fab fa-searchengin"></i></a></li>
+        <li><a href="#" id="clearArticles">Clear articles <i class="fas fa-eraser"></i></a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div id="jumbo" class="col s12 m10">
+     
+    </div>
+    
+    <div id="articles"></div>
+    <div id="notes"></div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,8 +1,14 @@
+$(document).ready(function() {
+
+  $(document).on("click", "#scrapeArticles",handleArticleScrape);
+  $(document).on("click", "#saveArticle",handleSaveArticle);
+  $(document).on("click", "#savedArticles",habdleSavedArticles);
+function printAtricle(){
 // Grab the articles as a json
+
 $.getJSON("/articles", function(data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
-
     var newCard = $('<div>');
     newCard.addClass('card horizontal');
     var divImg =$('<div>')
@@ -17,7 +23,7 @@ $.getJSON("/articles", function(data) {
     var pCont=$('<p>'+data[i].des+'</p>');
     var divLink=$('<div>');
     divLink.addClass('card-action');
-    var aLink =$('<a class="waves-effect waves-light btn-small blue-grey"> <i class="fas fa-save"></i> Save </a>');
+    var aLink =$('<a id="saveArticle" data-id="'+data[i]._id+'" class="waves-effect waves-light btn-small blue-grey"> <i class="fas fa-save"></i> Save </a>');
     
     divCont.prepend(pCont);
     divCont.prepend(h6);
@@ -34,7 +40,9 @@ $.getJSON("/articles", function(data) {
     
   }
 });
+}
 
+printAtricle();
 
 // Whenever someone clicks a p tag
 $(document).on("click", "p", function() {
@@ -70,6 +78,17 @@ $(document).on("click", "p", function() {
     });
 });
 
+function handleSaveArticle(){
+  // Grab the id associated with the article from the submit button
+  var thisId = $(this).attr("data-id");
+  // Run a POST request to change the note, using what's entered in the inputs
+  $.ajax({
+    method: "POST",
+    url: "/update/" + thisId
+    
+  })
+    printAtricle();
+}
 // When you click the savenote button
 $(document).on("click", "#savenote", function() {
   // Grab the id associated with the article from the submit button
@@ -109,16 +128,25 @@ $(document).on("click", "#clearArticles", function() {
       $("#articles").empty();
 });
 
+function habdleSavedArticles(){
 
-$(document).on("click", "#scrapeArticles", function() {
-  $.ajax({
-    method: "GET",
-    url: "/scrape"
+}
+
+function handleArticleScrape() {
+  // $.ajax({
+  //   method: "GET",
+  //   url: "/scrape"
+  // })
+  // // With that done
+  // .then(function(data) {
+  //   console.log(data);
+  //   printAtricle();
+  // });
+  $.get("/scrape").then(function(){
+    printAtricle();
+    location.reload();
   })
-  // With that done
-  .then(function() {
-    console.log("entro 2")
-    location.replace("/");
-  });  
   
+
+}
 });

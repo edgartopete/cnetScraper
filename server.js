@@ -50,9 +50,6 @@ app.get("/scrape", function(req, res) {
       result.link="https://www.cnet.com/"+$text.find('h3 a').attr('href');
       result.des=$text.find('p').text();
       result.img=$img.children('img').attr('data-original');
-     
-      
-      
       
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
@@ -71,7 +68,7 @@ app.get("/scrape", function(req, res) {
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
   // Grab every document in the Articles collection
-  db.Article.find({})
+  db.Article.find({saved:{$ne: true}})
     .then(function(dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
       res.json(dbArticle);
@@ -116,6 +113,14 @@ app.post("/articles/:id", function(req, res) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+});
+
+// Route for saving/updating an Article's associated Note
+app.post("/update/:id", function(req, res) {
+  db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true},{new:true}).catch(function(err) {
+    // If an error occurred, send it to the client
+    res.json(err);
+  });
 });
 
 app.delete('/clearArticles',function(res){
